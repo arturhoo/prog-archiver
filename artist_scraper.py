@@ -1,6 +1,7 @@
 import requests
 from lxml import html
 import re
+import sys
 import dataset
 
 db = dataset.connect('sqlite:///prog.db')
@@ -12,6 +13,9 @@ for artist_id in ids:
     base_url = "http://www.progarchives.com/artist.asp?id={0}"
     url = base_url.format(artist_id)
     response = requests.get(url)
+    if response.status_code != 200:
+        sys.exit('Non 200 status code received')
+
     parsed_body = html.fromstring(response.text)
 
     name = parsed_body.xpath('//div/strong/text()')[0][:-10]

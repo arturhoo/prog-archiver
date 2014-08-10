@@ -2,6 +2,7 @@ import requests
 from lxml import html
 import re
 import dataset
+import sys
 
 db = dataset.connect('sqlite:///prog.db')
 albums_table = db['albums']
@@ -10,6 +11,9 @@ for year in range(1945, 2015):
     base_url = "http://www.progarchives.com/top-prog-albums.asp?syears={0}"
     url = base_url.format(year)
     response = requests.get(url)
+    if response.status_code != 200:
+        sys.exit('Non 200 status code received')
+
     parsed_body = html.fromstring(response.text)
     rows = parsed_body.xpath("//table[@cellpadding='7']/tr")
 
