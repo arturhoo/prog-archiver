@@ -4,7 +4,7 @@ import re
 import dataset
 import sys
 
-db = dataset.connect('sqlite:///../prog.db')
+db = dataset.connect('sqlite:///../db/prog.db')
 albums_table = db['albums']
 
 for year in range(1945, 2015):

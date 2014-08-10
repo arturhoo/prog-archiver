@@ -4,7 +4,7 @@ import re
 import sys
 import dataset
 
-db = dataset.connect('sqlite:///../prog.db')
+db = dataset.connect('sqlite:///../db/prog.db')
 ids = db['albums'].distinct('artist_id')
 ids = [id_['artist_id'] for id_ in ids]
 artists_table = db['artists']
