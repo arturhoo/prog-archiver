@@ -18,6 +18,7 @@ for row in rows:
     rating = float(rating_str)
     qwr_text = tds[2].xpath(".//div[contains(@style, '80%')]/text()")[0]
     qwr = float(re.search(r'(\d.\d+)', qwr_text).groups()[0])
+    ratings = int(tds[2].xpath(".//span[contains(@style, '100%')]/text()")[0])
 
     album_id_url = tds[3].xpath(".//a/@href")[0]
     album_id = int(re.search(r'\?id=(\d+)$', album_id_url).groups()[0])
@@ -35,15 +36,7 @@ for row in rows:
         artist_id=artist_id,
         rating=rating,
         qwr=qwr,
+        ratings=ratings,
         genre=genre,
         year=year
     ))
-
-    print(title)
-    print('\t' + str(album_id))
-    print('\t' + artist_name)
-    print('\t' + str(artist_id))
-    print('\t' + str(rating))
-    print('\t' + str(qwr))
-    print('\t' + genre)
-    print('\t' + str(year))
