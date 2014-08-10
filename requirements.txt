@@ -2,3 +2,5 @@ ipython
 lxml
 pep8
 requests
+dataset
+psycopg2
