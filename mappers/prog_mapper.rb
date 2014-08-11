@@ -7,11 +7,31 @@ class ProgMapper
   end
 
   def average_qwr_by_year
-    rows = db.execute <<-SQL
+    db.execute <<-SQL
       SELECT year, AVG(qwr)
       FROM albums
       GROUP BY year
       ORDER BY year;
+    SQL
+  end
+
+  def top_artists
+    db.execute <<-SQL
+      SELECT AVG(qwr), artists.name
+      FROM albums
+      INNER JOIN artists ON artist_id = artists.id
+      GROUP BY artist_id
+      HAVING COUNT(artist_id) >= 2
+      ORDER BY AVG(qwr) DESC;
+    SQL
+  end
+
+  def top_genres
+    db.execute <<-SQL
+      SELECT AVG(qwr), genre
+      FROM albums
+      GROUP BY genre
+      ORDER BY AVG(qwr) DESC;
     SQL
   end
 
